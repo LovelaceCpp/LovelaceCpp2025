@@ -17,6 +17,9 @@ delete_file :
 clean : 
 	touch junk1 junk2 junk3 junk4 junk5 junk6 junk7
 
+print_file :
+	cat silly_file
+
 really_clean :
 	rm junk*
 

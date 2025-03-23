@@ -95,8 +95,8 @@ void processImage()
 {
 	// Load in.png
 	// We only use raw pointer once, for demo purposes, for the original PNG  
-        PNG* original;
-	 
+        PNG* original = new PNG();
+
 	     std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
 
         if (!original->readFromFile("in.png")) {
@@ -104,14 +104,16 @@ void processImage()
         }
 		std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
 	
+		std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
 	//wrap raw pointer asap and create the unique pointer from it for the output PNG
 	std::unique_ptr<PNG> output(original);
+	std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
 
 	//Sketchify, colorize, and add borders
 	output = sketchify(move(output));
 	output = colorize(move(output));
 	output = addBorders(move(output));
-	
+	std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
 	
 	// Save the output file
         if (!output->writeToFile("out.png")) {

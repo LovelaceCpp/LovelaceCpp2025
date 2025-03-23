@@ -1,16 +1,18 @@
 // in structures everything is public
 #include <iostream>
-struct Date
-{
-    int y;
-    int m;
-    int d;
+#include<memory>
 
-};
 int main()
 {
-    Date d;
-    d.d = 2017;
-    d.m = 13;
-    std::cout << d.d << "." << d.m << "." <<std::endl;
+    //int *ptr = new int(5);
+    std::unique_ptr<int> a (new int (5));
+    std::unique_ptr<int> b = std::make_unique<int>(5); 
+
+
+
+   //std::cout <<"a = " << *a <<std::endl;
+    
+    int i = 0;
+    std::cout << i++ << ", " << i <<std::endl;
+    std::cout << ++i << ", " << i <<std::endl;
 }

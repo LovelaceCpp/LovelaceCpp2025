@@ -95,7 +95,8 @@ void processImage()
 {
 	// Load in.png
 	// We only use raw pointer once, for demo purposes, for the original PNG  
-        PNG* original = new PNG();
+       PNG* original = new PNG;
+	//std::unique_ptr<PNG> original = std::make_unique<PNG>();
 
 	     std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
 
@@ -120,5 +121,5 @@ void processImage()
             throw std::runtime_error("Failed to write to image file out.png.");
         }
 
-	delete original;
+	//delete original;
 }

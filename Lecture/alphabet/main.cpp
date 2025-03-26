@@ -11,6 +11,6 @@ int main()
     {
         letters[i] = 'a' + i;
     }
-    //int idx = 50;
-    std::cout << "letters[3]: " << letters[2] << std::endl;
+  //  int idx = 50;
+    std::cout << "letters[3]: " << letters[10] << std::endl;
 }

@@ -23,6 +23,8 @@ int main()
 {
 	std::cout << std::endl;
 	fileio::init();
+	std::cout << "Line" << __LINE__ << std::endl;
+	
 	Allocator theAllocator("students.txt", "rooms.txt");
 	theAllocator.allocate();
 	theAllocator.printRooms();

@@ -23,9 +23,9 @@ RGBAPixel myFavoriteColor(int intensity)
 std::unique_ptr<PNG> colorize(std::unique_ptr<PNG> original) {
     int width = original->width();
     int height = original->height();
-    for (int y = 0; 1 < y < height; y++) {
-        for (int x = 0; 1 < x < width; x++) {
-            RGBAPixel p = (*original)(x, y);
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            RGBAPixel &p = (*original)(x, y);
             if (p.red == 0 && p.green == 0 && p.blue == 0) {
 	      p = myFavoriteColor(x+y);
             }
@@ -41,7 +41,7 @@ std::unique_ptr<PNG> addBorders(std::unique_ptr<PNG> original) {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             float fromBorder = std::min(width/2 - std::abs(x - width/2), height/2 - std::abs(y - height/2));
-            RGBAPixel pixel = (*original)(x, y);
+            RGBAPixel &pixel = (*original)(x, y);
             float factor = std::min(fromBorder * 0.03f, 1.0f);
             pixel.red *= factor;
             pixel.green *= factor;
@@ -62,8 +62,7 @@ std::unique_ptr<PNG> sketchify(std::unique_ptr<PNG> original){
 	int width  = original->width();
 	int height = original->height();
 
-	std::unique_ptr<PNG> output;
-	setupOutput(width, height);
+	std::unique_ptr<PNG> output = setupOutput(width, height); 
   
 	// Go over the whole image, and if a pixel differs from that to its upper
 	// left, color it my favorite color in the output
@@ -80,9 +79,9 @@ std::unique_ptr<PNG> sketchify(std::unique_ptr<PNG> original){
 
 			// If the pixel is an edge pixel,
 			// color the output pixel with black
-			RGBAPixel & myPixel = (*output)(x,y);
+			RGBAPixel &myPixel = (*output)(x,y);
 			if (diff > 70)
-			  myPixel = RGBAPixel(0, 0, 0);
+			myPixel = RGBAPixel(0, 0, 0);  
 		}
 	}
 	return output;
@@ -112,6 +111,9 @@ void processImage()
 
 	//Sketchify, colorize, and add borders
 	output = sketchify(move(output));
+	std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
+	
+	
 	output = colorize(move(output));
 	output = addBorders(move(output));
 	std::cout << " Reached line " << __LINE__ << __FILE__ << std::endl;
